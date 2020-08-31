@@ -107,7 +107,7 @@ trait ArrayWhere
      * @param $callback
      * @return static
      */
-    private function filter($callback)
+    public function filter($callback)
     {
          $items = array_filter($this->items,$callback,ARRAY_FILTER_USE_BOTH);
         return new static($items);

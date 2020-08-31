@@ -76,11 +76,15 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable
         return new \ArrayIterator($this->items);
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
        return count($this->items);
     }
 
+    
     /**
      * @return array
      */
