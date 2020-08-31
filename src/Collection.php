@@ -67,6 +67,75 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable
        return new static($items);
     }
 
+    /**
+     * 数组切片
+     * @param      $offset int 如果是负数 从数组尾部取$length个数组
+     * @param null $length
+     * @return $this
+     */
+    public function slice($offset,$length = null)
+    {
+        $items = array_slice($this->items,$offset,$length,true);
+        return new static($items);
+    }
+
+    /**
+     * 使用回调函数依次处理数组
+     * 
+     * @param $callback
+     */
+    public function each(\Closure $callback)
+    {
+       foreach ($this->items as $key => $item){
+           $callback($key,$item);
+       }
+    }
+
+
+    /**
+     * @param \Closure $callback
+     * @return $this
+     */
+    public function map(\Closure $callback)
+    {
+        $items = array_map($callback,$this->items);
+        return new static($items);
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function keys()
+    {
+        return new static(array_keys($this->items));
+    }
+
+    /**
+     * @return $this
+     */
+    public function values()
+    {
+       return new static(array_values($this->items));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+       return empty($this->items);
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isNotEmpty()
+    {
+       return !$this->isEmpty();
+    }
+
 
     /**
      * @return \ArrayIterator|\Traversable
