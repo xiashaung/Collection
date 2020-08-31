@@ -84,6 +84,40 @@ trait ArrayWhere
         });
     }
 
+
+    /**
+     * @param      $name
+     * @param      $operate
+     * @param null $value
+     * @return |null
+     * @throws \Xs\Exceptions\WhereOperationNotAllowedExcetion
+     */
+    public function whereFirst($name, $operate, $value = null)
+    {
+        return $this->where(...func_get_args())->first();
+    }
+
+
+    /**
+     * @param null $callback
+     * @param null $default
+     * @return |null
+     */
+    public function first($callback = null,$default = null)
+    {
+        if (is_null($callback)){
+            foreach ($this->items as $item) {
+                return $item;
+            }
+        }
+        foreach ($this->items as $key=> $item){
+            if (call_user_func($callback, $item,$key)){
+                return $item;
+            }
+        }
+        return $default;
+    }
+
     
     /**
      * @param      $item
