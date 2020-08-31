@@ -3,6 +3,7 @@
 namespace Xs;
 
 use Xs\Traits\ArrayAccess;
+use Xs\Traits\ArrayMath;
 use Xs\Traits\ArrayWhere;
 use Xs\Traits\Macroable;
 use Xs\Traits\MagicMehtods;
@@ -13,7 +14,8 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable
     use Macroable,
         ArrayAccess,
         MagicMehtods,
-        ArrayWhere;
+        ArrayWhere,
+        ArrayMath;
     
     private $items = [];
 
@@ -47,38 +49,6 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable
     {
         $items = array_column($this->items,$colunm,$indexKey);
         return new static($items);
-    }
-
-
-    /**
-     * 数组之和
-     *
-     * @param null $colunm
-     * @return float|int
-     */
-    public function sum($colunm = null)
-    {
-        if (!is_null($colunm)) {
-            return $this->colunm($colunm)->sum();
-        }
-
-        return array_sum($this->items) ?? 0;
-    }
-
-
-    /**
-     * 平均数
-     *
-     * @param null $column
-     * @return float|int
-     */
-    public function avg($column = null)
-    {
-        if (!is_null($column)) {
-            return $this->colunm($column)->avg();
-        }
-
-        return $this->sum() / $this->count();
     }
 
     /**
