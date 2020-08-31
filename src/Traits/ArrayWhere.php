@@ -84,7 +84,7 @@ trait ArrayWhere
         });
     }
 
-
+    
     /**
      * @param      $item
      * @param      $key
