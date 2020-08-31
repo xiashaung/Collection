@@ -18,7 +18,7 @@ trait MagicMehtods
 
     public function __toString()
     {
-        return json_encode($this->toArray(),JSON_UNESCAPED_UNICODE);
+        return $this->toJson();
     }
 }
 

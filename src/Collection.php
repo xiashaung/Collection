@@ -8,7 +8,7 @@ use Xs\Traits\ArrayWhere;
 use Xs\Traits\Macroable;
 use Xs\Traits\MagicMehtods;
 
-class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable
+class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonSerializable
 {
 
     use Macroable,
@@ -160,6 +160,18 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable
     public function toArray()
     {
        return $this->items;
+    }
+
+
+    public function toJson($option = JSON_UNESCAPED_UNICODE)
+    {
+        return json_encode($this->items,$option);
+    }
+
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 
 }
