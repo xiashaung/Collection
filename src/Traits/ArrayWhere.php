@@ -4,8 +4,14 @@
 namespace Xs\Traits;
 
 
+use Xs\Exceptions\WhereOperationNotAllowedExcetion;
+
 trait ArrayWhere
 {
+
+    private $whereOperate = ['=','==','===','>','>=','<','<=','!=','!=='];
+
+
     /**
      * @param      $name
      * @param      $operate
@@ -18,8 +24,14 @@ trait ArrayWhere
            $value = $operate;
            $operate = '==';
         }
+
+        if (in_array($operate,$this->whereOperate)){
+            throw new WhereOperationNotAllowedExcetion(sprintf("where opreation %s not allowed", $operate));
+        }
+
         return $this->filter($this->prepareForWhere($name,$operate,$value));
     }
+
 
     /**
      * @param      $name
@@ -32,7 +44,8 @@ trait ArrayWhere
         return function($item)use($name, $operate, $value){
             $itemValue =  $this->itemValue($item,$name);
             switch ($operate){
-                case '==': return $itemValue == $value;
+                case '=':
+                case '==':return $itemValue == $value;
                 case '===': return $itemValue === $value;
                 case '!=': return $itemValue != $value;
                 case '!==': return $itemValue !== $value;
@@ -59,7 +72,12 @@ trait ArrayWhere
     }
 
 
-    
+    /**
+     * @param      $item
+     * @param      $key
+     * @param null $default
+     * @return mixed|null
+     */
     private function itemValue($item,$key,$default = null)
     {
        if (!is_array($item) || !isset($item[$key])) return $default;
@@ -70,6 +88,7 @@ trait ArrayWhere
 
        return $value ?? $default;
     }
+
 
     /**
      * @param $callback
