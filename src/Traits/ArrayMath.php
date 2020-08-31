@@ -36,4 +36,30 @@ trait ArrayMath
 
         return $this->sum() / $this->count();
     }
+
+    /**
+     * @param null $column
+     * @return mixed
+     */
+    public function max($column = null)
+    {
+        if (!is_null($column)) {
+            return $this->colunm($column)->max();
+        }
+
+        return max($this->items);
+    }
+
+    /**
+     * @param null $column
+     * @return mixed
+     */
+    public function min($column = null)
+    {
+        if (!is_null($column)) {
+            return $this->colunm($column)->min();
+        }
+
+        return min($this->items);
+    }
 }
