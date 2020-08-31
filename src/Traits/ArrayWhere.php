@@ -63,11 +63,24 @@ trait ArrayWhere
      * @param bool  $strict
      * @return static
      */
-    public function whereIn($name,array $value,bool $strict = false)
+    public function whereIn($name,array $values,bool $strict = false)
     {
-        return $this->filter(function($item)use($name,$value,$strict){
+        return $this->filter(function($item)use($name,$values,$strict){
             $itemValue = $this->itemValue($item,$name);
-            return in_array($itemValue,$value,$strict);
+            return in_array($itemValue,$values,$strict);
+        });
+    }
+
+    /**
+     * @param       $name
+     * @param array $values
+     * @param bool  $strict
+     */
+    public function whereNotIn($name, array $values, bool $strict = false)
+    {
+        return $this->filter(function ($item) use ($name, $values, $strict){
+            $itemValue = $this->itemValue($item, $name);
+            return !in_array($itemValue, $values, $strict);
         });
     }
 
