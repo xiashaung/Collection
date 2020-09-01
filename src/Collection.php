@@ -2,23 +2,27 @@
 
 namespace Xs;
 
-use phpDocumentor\Reflection\Types\Self_;
+use ArrayIterator;
+use Closure;
+use Countable;
+use IteratorAggregate;
+use JsonSerializable;
 use Xs\Traits\ArrayAccess;
 use Xs\Traits\ArrayMath;
 use Xs\Traits\ArrayWhere;
 use Xs\Traits\Macroable;
-use Xs\Traits\MagicMehtods;
+use Xs\Traits\MagicMethods;
 
-class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonSerializable
+class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonSerializable
 {
 
     use Macroable,
         ArrayAccess,
-        MagicMehtods,
+        MagicMethods,
         ArrayWhere,
         ArrayMath;
-    
-    private $items = [];
+
+    private $items;
 
     /**
      * Collection constructor.
@@ -55,7 +59,8 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
     /**
      * 数组去重
      *
-     * @param int $sortKey
+     * @param null $column
+     * @param int  $sortKey
      * @return $this
      */
     public function unique($column = null,$sortKey = SORT_STRING)
@@ -72,7 +77,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
      * 数组切片
      * @param      $offset int 如果是负数 从数组尾部取$length个数组
      * @param null $length
-     * @return $this
+     * @return static
      */
     public function slice($offset,$length = null)
     {
@@ -82,10 +87,10 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
 
     /**
      * 使用回调函数依次处理数组
-     * 
+     *
      * @param $callback
      */
-    public function each(\Closure $callback)
+    public function each(Closure $callback)
     {
        foreach ($this->items as $key => $item){
            $callback($key,$item);
@@ -97,7 +102,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
      * @param \Closure $callback
      * @return $this
      */
-    public function map(\Closure $callback)
+    public function map(Closure $callback)
     {
         $items = array_map($callback,$this->items);
         return new static($items);
@@ -117,7 +122,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
 
     /**
      * 交换数组的键值
-     * 
+     *
      * @return $this
      */
     public function flip()
@@ -128,7 +133,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
 
     /**
      * 弹出数组堆栈中的最后一个值
-     * 
+     *
      * @return mixed
      */
     public function pop()
@@ -136,6 +141,40 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
        return array_pop($this->items);
     }
 
+
+    /**
+     * @param null   $column
+     * @param string $glue
+     * @return string
+     */
+    public function implode($column = null,$glue = '')
+    {
+        if (!is_null($column)){
+            return $this->column($column)->implode(null, $glue);
+        }
+        return implode($this->items,$glue);
+    }
+
+    /**
+     * 返回所有数据
+     *
+     * @return array
+     */
+    public function all()
+    {
+       return $this->toArray();
+    }
+
+
+    /**
+     * all方法的别名
+     *
+     * @return array
+     */
+    public function get()
+    {
+        return $this->all();
+    }
 
     /**
      * 在数组尾部加入一个参数
@@ -164,7 +203,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
         }
         $this->items = array_merge($this->items,$items);
     }
-    
+
 
     /**
      * @return $this
@@ -194,7 +233,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
     /**
      * @return bool
      */
-    public function isNotEmpty()
+    public function isNotEmpty(): bool
     {
        return !$this->isEmpty();
     }
@@ -205,7 +244,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->items);
+        return new ArrayIterator($this->items);
     }
 
     /**
@@ -216,7 +255,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
        return count($this->items);
     }
 
-    
+
     /**
      * @return array
      */
