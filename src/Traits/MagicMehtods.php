@@ -16,6 +16,11 @@ trait MagicMehtods
         $this->offsetSet($name,$value);
     }
 
+    public function __isset($name)
+    {
+        return $this->offsetExists($name);
+    }
+
     public function __toString()
     {
         return $this->toJson();

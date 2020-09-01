@@ -9,13 +9,13 @@ trait ArrayMath
     /**
      * 数组之和
      *
-     * @param null $colunm
+     * @param null $column
      * @return float|int
      */
-    public function sum($colunm = null)
+    public function sum($column = null)
     {
-        if (!is_null($colunm)) {
-            return $this->colunm($colunm)->sum();
+        if (!is_null($column)) {
+            return $this->column($column)->sum();
         }
 
         return array_sum($this->items) ?? 0;
@@ -31,7 +31,7 @@ trait ArrayMath
     public function avg($column = null)
     {
         if (!is_null($column)) {
-            return $this->colunm($column)->avg();
+            return $this->column($column)->avg();
         }
 
         return $this->sum() / $this->count();
@@ -46,7 +46,7 @@ trait ArrayMath
     public function max($column = null)
     {
         if (!is_null($column)) {
-            return $this->colunm($column)->max();
+            return $this->column($column)->max();
         }
 
         return max($this->items);
@@ -61,7 +61,7 @@ trait ArrayMath
     public function min($column = null)
     {
         if (!is_null($column)) {
-            return $this->colunm($column)->min();
+            return $this->column($column)->min();
         }
 
         return min($this->items);

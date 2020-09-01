@@ -15,7 +15,7 @@ class TestCollection extends TestCase
             ['a'=>1,'b'=>2],
             ['a'=>2,'b'=>3],
         ];
-        $data = Collection::make($data)->colunm('a')->toArray();
+        $data = Collection::make($data)->column('a')->toArray();
         $this->assertEquals([1,2],$data);
     }
 

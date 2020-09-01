@@ -42,13 +42,13 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
     /**
      * 数组字段
      *
-     * @param      $colunm
+     * @param      $column
      * @param null $indexKey
      * @return static
      */
-    public function colunm($colunm,$indexKey = null)
+    public function column($column,$indexKey = null)
     {
-        $items = array_column($this->items,$colunm,$indexKey);
+        $items = array_column($this->items, $column,$indexKey);
         return new static($items);
     }
 
@@ -61,7 +61,7 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
     public function unique($column = null,$sortKey = SORT_STRING)
     {
         if (!is_null($column)){
-           return $this->colunm($column)->unique(null,$sortKey);
+           return $this->column($column)->unique(null,$sortKey);
         }
 
        $items = array_unique($this->items,$sortKey);
