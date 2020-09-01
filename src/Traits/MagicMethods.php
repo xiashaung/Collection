@@ -4,7 +4,7 @@
 namespace Xs\Traits;
 
 
-trait MagicMehtods
+trait MagicMethods
 {
     public function __get($name)
     {
