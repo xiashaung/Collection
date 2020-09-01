@@ -2,6 +2,7 @@
 
 namespace Xs;
 
+use phpDocumentor\Reflection\Types\Self_;
 use Xs\Traits\ArrayAccess;
 use Xs\Traits\ArrayMath;
 use Xs\Traits\ArrayWhere;
@@ -102,6 +103,68 @@ class  Collection   implements \ArrayAccess,\IteratorAggregate,\Countable,\JsonS
         return new static($items);
     }
 
+    /**
+     * 比较数组 返回差值
+     *
+     * @param array $array
+     * @return $this
+     */
+    public function diff(array $array)
+    {
+        return new static(array_diff($this->items,$array));
+    }
+
+
+    /**
+     * 交换数组的键值
+     * 
+     * @return $this
+     */
+    public function flip()
+    {
+       return new static(array_flip($this->items));
+    }
+
+
+    /**
+     * 弹出数组堆栈中的最后一个值
+     * 
+     * @return mixed
+     */
+    public function pop()
+    {
+       return array_pop($this->items);
+    }
+
+
+    /**
+     * 在数组尾部加入一个参数
+     *
+     * @param $item
+     * @return int
+     */
+    public function push($item)
+    {
+       $key = key($this->items);
+       if (is_string($key)){
+           return array_push($this->items,$item);
+       }
+       return $this->items[] = $item;
+    }
+
+    /**
+     * 合并一个数组
+     *
+     * @param $items
+     */
+    public function merge($items)
+    {
+        if ($items instanceof  self){
+            $items = $items->toArray();
+        }
+        $this->items = array_merge($this->items,$items);
+    }
+    
 
     /**
      * @return $this

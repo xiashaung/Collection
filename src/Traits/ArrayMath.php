@@ -38,6 +38,8 @@ trait ArrayMath
     }
 
     /**
+     * 最大数
+     * 
      * @param null $column
      * @return mixed
      */
@@ -51,6 +53,8 @@ trait ArrayMath
     }
 
     /**
+     * 最小数
+     *
      * @param null $column
      * @return mixed
      */
