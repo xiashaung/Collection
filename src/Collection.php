@@ -13,7 +13,7 @@ use Xs\Traits\ArrayWhere;
 use Xs\Traits\Macroable;
 use Xs\Traits\MagicMethods;
 
-class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonSerializable
+class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonSerializable,ArrayAble
 {
 
     use Macroable,
