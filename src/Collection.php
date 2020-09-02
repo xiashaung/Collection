@@ -259,7 +259,7 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray():array 
     {
        return $this->items;
     }
