@@ -9,6 +9,7 @@ use IteratorAggregate;
 use JsonSerializable;
 use Xs\Traits\ArrayAccess;
 use Xs\Traits\ArrayMath;
+use Xs\Traits\ArraySort;
 use Xs\Traits\ArrayWhere;
 use Xs\Traits\Macroable;
 use Xs\Traits\MagicMethods;
@@ -20,7 +21,8 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
         ArrayAccess,
         MagicMethods,
         ArrayWhere,
-        ArrayMath;
+        ArrayMath,
+        ArraySort;
 
     private $items;
 
