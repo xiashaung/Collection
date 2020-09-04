@@ -53,7 +53,6 @@ trait ArraySort
      *
      * @param     $column
      * @param int $option
-     * @return \Xs\Traits\ArraySort
      * @return static
      */
     public function orderByDesc($column, $option = SORT_REGULAR)
