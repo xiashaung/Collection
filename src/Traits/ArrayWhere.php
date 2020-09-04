@@ -4,7 +4,7 @@
 namespace Xs\Traits;
 
 
-use Xs\Exceptions\WhereOperationNotAllowedExcetion;
+use Xs\Exceptions\WhereOperationNotAllowedException;
 
 trait ArrayWhere
 {
@@ -25,8 +25,8 @@ trait ArrayWhere
             $operate = '==';
         }
 
-        if (in_array($operate, $this->whereOperate)) {
-            throw new WhereOperationNotAllowedExcetion(sprintf("where opreation %s not allowed", $operate));
+        if (!in_array($operate, $this->whereOperate)) {
+            throw new WhereOperationNotAllowedException(sprintf("where operate %s not allowed", $operate));
         }
 
         return $this->filter($this->prepareForWhere($name, $operate, $value));

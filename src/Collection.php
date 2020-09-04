@@ -73,6 +73,19 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
        return new static($items);
     }
 
+
+    /**
+     *slice 方法的别名
+     *
+     * @param      $offset
+     * @param null $length
+     * @return $this
+     */
+    public function limit($offset,$length = null)
+    {
+        return $this->slice($offset,$length);
+    }
+
     /**
      * 数组切片
      * @param      $offset int 如果是负数 从数组尾部取$length个数组
