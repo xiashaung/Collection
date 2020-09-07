@@ -169,6 +169,7 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
         }
         return implode($this->items,$glue);
     }
+    
 
     /**
      * 返回所有数据
@@ -210,6 +211,7 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
      * 合并一个数组
      *
      * @param $items
+     * @return static
      */
     public function merge($items)
     {
@@ -217,6 +219,53 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
             $items = $items->toArray();
         }
         $this->items = array_merge($this->items,$items);
+        return $this;
+    }
+
+
+    /**
+     * @param $items
+     * @return $this
+     */
+    public function mergeRecursive($items)
+    {
+        if ($items instanceof self) {
+            $items = $items->toArray();
+        }
+        $this->items = array_merge_recursive($this->items, $items);
+        return $this;
+    }
+
+
+    /**
+     *
+     * 从数组里获取一个key,如果不存在就返回default
+     *
+     * @param      $key
+     * @param null $default
+     * @return mixed|null
+     */
+    public function value($key,$default = null)
+    {
+       return $this->itemValue($this->items,$key,$default);
+    }
+
+
+    /**
+     * 删除某些字段
+     *
+     * @param mixed $columns
+     * @return $this
+     */
+    public function remove($columns)
+    {
+        $columns = is_array($columns) ? $columns: func_get_args();
+        
+        foreach ($columns as $column){
+           $this->offsetUnset($column);
+        }
+        
+        return $this;
     }
 
 
@@ -284,6 +333,7 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
     {
         return json_encode($this->items,$option);
     }
+
 
 
     public function jsonSerialize()
