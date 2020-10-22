@@ -6,5 +6,5 @@ namespace Xs;
 
 interface ArrayAble
 {
-    public function toArray(): array ;
+    public function toArray();
 }

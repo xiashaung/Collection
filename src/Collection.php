@@ -319,11 +319,21 @@ class  Collection   implements \ArrayAccess, IteratorAggregate, Countable, JsonS
        return count($this->items);
     }
 
+    /**
+     * 深入遍历计算个数
+     * 
+     * @return int
+     */
+    public function countRecursive()
+    {
+        return count($this->items,COUNT_RECURSIVE);
+    }
+
 
     /**
      * @return array
      */
-    public function toArray():array 
+    public function toArray()
     {
        return $this->items;
     }
