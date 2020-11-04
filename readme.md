@@ -1,5 +1,23 @@
-## php Collection类实现
+## 安装
+
+    composer require xs/collection
+    
+   
+## 方法支持
+
+    $collection = new Xs\Collection($array);
+    
+    或者
+    
+    $collection = Xs\Collection::make($array);
 
 
-## 目的
-    整理日常项目中常用的数组操作
+## 目录
+
+
+* [arrayAccess](arrayAccess)
+
+<>
+    
+    
+
